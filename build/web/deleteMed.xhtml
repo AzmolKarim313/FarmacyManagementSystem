@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery.js" />
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="homePage.xhtml">My Pharmacy</a>
+                </div>
+                <div class="container">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="homePage.xhtml">Home</a></li>
+                        <li><a href="salesPage.xhtml">Sales</a></li>
+                        <li class="active"><a href="addMedPage.xhtml">Medicine</a></li>
+                        <li><a href="showAccPage.xhtml">Details</a></li>
+                        <li><a href="aboutPage.xhtml">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h3>Medicine Storing</h3>
+            <ul class="nav nav-tabs">
+                <li><a href="addMedPage.xhtml">Add Medicine</a></li>
+                <li class="active"><a href="deleteMed.xhtml">Remove Medicine</a></li>
+                <li><a href="updateMed.xhtml">Edit Medicine</a></li>
+                <li><a href="showMedInfo.xhtml">Show Medicine</a></li>
+            </ul>
+            <br/>
+            <div class="panel col-xs-12" id="updateAll">
+               <div class=" col-xs-6 col-xs-offset-3">
+                    <h:form class="form-horizontal">
+                        <h4 class="panel-heading">Medicine Information</h4>
+                        <div class="form-group">
+                            <p:outputLabel value="Medicine ID"  class="control-label col-sm-4"/>
+                            <div class="col-sm-8">
+                                <h:selectOneMenu value="#{medicineMB.medicin.medicin_id}">
+                                    <f:selectItem itemLabel="--Select One--"/>
+                                    <f:selectItems value="#{medicineMB.lsitOfAllMedicinById}"/>
+                                    <f:ajax event="change" execute="@this" render="medName medGroup medCom" listener="#{medicineMB.fullInfoByID()}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="Medicine Name"  class="control-label col-sm-4"/>
+                            <div class="col-sm-8"> 
+                                <p:outputLabel class="form-control" value="#{medicineMB.medicin.medicin_name}" id="medName"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="Group Name"  class="control-label col-sm-4"/>
+                            <div class="col-sm-8">
+                                <p:outputLabel class="form-control" value="#{medicineMB.medicin.group_name}" id="medGroup"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="Company"  class="control-label col-sm-4"/>
+                            <div class="col-sm-8"> 
+                                <p:outputLabel class="form-control" value="#{medicineMB.medicin.company}" id="medCom"/>
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <h:commandButton class="btn btn-success" value="Remove Medicine" action="deleteMed.xhtml" actionListener="#{medicineMB.deleteMedInfo()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+
+            </div>
+        </div>
+    </h:body>
+</html>
+
